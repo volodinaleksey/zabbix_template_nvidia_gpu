@@ -1,33 +1,30 @@
-# Zabbix Template Nvidia SMI monitoring
+# Zabbix Template NVIDIA GPU monitoring
 
 ## Overview
+For Zabbix version: 5.0 and higher.
+The NVIDIA System Management Interface (nvidia-smi) utility used.
 
-This template integrates Nvidia SMI for a single graphics card with Zabbix.
-
-
-The template adds monitoring of:
-
-
+The template is developed for monitoring singe or multiply NVIDIA GPUs and provides the following information
 * Clocks Graphics, Memory, SM, Video
-
 * Fan Sped in %
-
 * GPU Current Temp, Slowdown Temp, utilization in %
-
-
 * Memory free, total, used, utilization in %
-
 * Power Default Limit, Draw, Max Limit
 
+LLD using for GPUs discovery and items creation.
 
-The following agent parameters can be used to add the metrics into Zabbix.
+## Setup
+Install Zabbix agent on Windows OS according to Zabbix documentation.
 
-UserParameter=nvidia.gpu.discovery,nvidia-smi --query-gpu=uuid,name --format=csv,noheader,nounits
-UserParameter=nvidia.gpu.getalldata[*],nvidia-smi -q -i $1
+Copy `nvidia_gpu_template.conf` into the folder with Zabbix agent configuration (`C:\Program Files\Zabbix Agent\zabbix_agentd.d` by default). Don't forget to restart Zabbix agent.
 
 ## Author
 
 Aleksey Volodin
+
+## UserParameters
+UserParameter=nvidia.gpu.discovery,nvidia-smi --query-gpu=uuid,name --format=csv,noheader,nounits
+UserParameter=nvidia.gpu.getalldata[*],nvidia-smi -q -i $1
 
 ## Macros used
 
@@ -44,35 +41,20 @@ nvidia.gpu.discovery
 ## Items collected
 
 * Clocks Graphics
-
 * Clocks Graphics
-
 * Clocks Memory
-
 * Clocks SM
-
 * Clocks Video
-
 * Fan Sped in %
-
 * GPU Current Temp
-
 * GPU Slowdown Temp
-
 * GPU utilization in %
-
 * Memory free
-
 * Memory total
-
 * Memory used
-
 * Memory utilization in %
-
 * Power Default Limit
-
 * Power Draw
-
 * Power Max Limit
 
 
