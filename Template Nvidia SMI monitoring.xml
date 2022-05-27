@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-05-27T15:56:46Z</date>
+    <groups>
+        <group>
+            <name>Templates/Hardware/GPU</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Nvidia SMI monitoring</template>
+            <name>Template Nvidia SMI monitoring</name>
+            <groups>
+                <group>
+                    <name>Templates/Hardware/GPU</name>
+                </group>
+            </groups>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Test</name>
+                    <key>test</key>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
