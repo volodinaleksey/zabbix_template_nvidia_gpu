@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2022-05-27T16:16:22Z</date>
+    <date>2022-05-30T13:08:27Z</date>
     <groups>
         <group>
             <name>Templates/Hardware/GPU</name>
@@ -9,13 +9,22 @@
     </groups>
     <templates>
         <template>
-            <template>Template Nvidia SMI monitoring</template>
-            <name>Template Nvidia SMI monitoring</name>
+            <template>Template Nvidia GPU</template>
+            <name>Template Nvidia GPU</name>
+            <description>The NVIDIA System Management Interface (nvidia-smi) utility used.</description>
             <groups>
                 <group>
                     <name>Templates/Hardware/GPU</name>
                 </group>
             </groups>
+            <applications>
+                <application>
+                    <name>NVIDIA GPU</name>
+                </application>
+                <application>
+                    <name>Zabbix raw items</name>
+                </application>
+            </applications>
             <discovery_rules>
                 <discovery_rule>
                     <name>NVIDIA GPUs discovery</name>
@@ -28,6 +37,11 @@
                             <key>clocks.graphics[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MHz</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -45,6 +59,11 @@
                             <key>clocks.memory[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MHz</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -62,6 +81,11 @@
                             <key>clocks.sm[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MHz</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -79,10 +103,37 @@
                             <key>clocks.video[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MHz</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
                                     <params>Video\s+: (\w+) MHz
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#GPU.NAME} Fan Sped in %</name>
+                            <type>DEPENDENT</type>
+                            <key>fan.speed[{#GPU.UUID}]</key>
+                            <delay>0</delay>
+                            <units>!%</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>Fan Speed\s+: (\w+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -96,6 +147,11 @@
                             <key>gpu.current.temp[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!°C</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -113,10 +169,37 @@
                             <key>gpu.slowdown.temp[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!°C</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
                                     <params>GPU Slowdown Temp\s+: (\w+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#GPU.NAME} GPU utilization in %</name>
+                            <type>DEPENDENT</type>
+                            <key>gpu.utilization[{#GPU.UUID}]</key>
+                            <delay>0</delay>
+                            <units>!%</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>Gpu\s+: (\w+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -130,6 +213,11 @@
                             <key>memory.free[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MiB</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -147,6 +235,11 @@
                             <key>memory.total[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MiB</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -164,10 +257,37 @@
                             <key>memory.used[{#GPU.UUID}]</key>
                             <delay>0</delay>
                             <units>!MiB</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
                                     <params>Used\s+: (\w+)
+\1</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>{#GPU.NAME} Memory utilization in %</name>
+                            <type>DEPENDENT</type>
+                            <key>memory.utilization[{#GPU.UUID}]</key>
+                            <delay>0</delay>
+                            <units>!%</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>REGEX</type>
+                                    <params>Memory\s+: (\w+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -181,13 +301,24 @@
                             <history>0</history>
                             <trends>0</trends>
                             <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Zabbix raw items</name>
+                                </application>
+                            </applications>
                         </item_prototype>
                         <item_prototype>
                             <name>{#GPU.NAME} Power Default Limit</name>
                             <type>DEPENDENT</type>
                             <key>power.dpl[{#GPU.UUID}]</key>
                             <delay>0</delay>
+                            <value_type>FLOAT</value_type>
                             <units>!W</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -204,7 +335,13 @@
                             <type>DEPENDENT</type>
                             <key>power.mpl[{#GPU.UUID}]</key>
                             <delay>0</delay>
+                            <value_type>FLOAT</value_type>
                             <units>!W</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
@@ -221,62 +358,17 @@
                             <type>DEPENDENT</type>
                             <key>power.pd[{#GPU.UUID}]</key>
                             <delay>0</delay>
+                            <value_type>FLOAT</value_type>
                             <units>!W</units>
+                            <applications>
+                                <application>
+                                    <name>NVIDIA GPU</name>
+                                </application>
+                            </applications>
                             <preprocessing>
                                 <step>
                                     <type>REGEX</type>
                                     <params>Power Draw\s+: (\w+...)
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <master_item>
-                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#GPU.NAME} Fan Sped in %</name>
-                            <type>DEPENDENT</type>
-                            <key>temperature.gpu[{#GPU.UUID}]</key>
-                            <delay>0</delay>
-                            <units>!%</units>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>Fan Speed\s+: (\w+)
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <master_item>
-                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#GPU.NAME} GPU utilization in %</name>
-                            <type>DEPENDENT</type>
-                            <key>utilization.gpu[{#GPU.UUID}]</key>
-                            <delay>0</delay>
-                            <units>!%</units>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>Gpu\s+: (\w+)
-\1</params>
-                                </step>
-                            </preprocessing>
-                            <master_item>
-                                <key>nvidia.gpu.getalldata[{#GPU.UUID}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#GPU.NAME} Memory utilization in %</name>
-                            <type>DEPENDENT</type>
-                            <key>utilization.memory[{#GPU.UUID}]</key>
-                            <delay>0</delay>
-                            <units>!%</units>
-                            <preprocessing>
-                                <step>
-                                    <type>REGEX</type>
-                                    <params>Memory\s+: (\w+)
 \1</params>
                                 </step>
                             </preprocessing>
