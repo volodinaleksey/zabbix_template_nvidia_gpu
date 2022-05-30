@@ -2,7 +2,7 @@
 
 ## Overview
 For Zabbix version: 5.0 and higher.
-The NVIDIA System Management Interface (nvidia-smi) utility used.
+The NVIDIA System Management Interface ([nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)) utility used.
 
 The template is developed for monitoring singe or multiply NVIDIA GPUs and provides the following information
 * Clocks Graphics, Memory, SM, Video
@@ -12,6 +12,10 @@ The template is developed for monitoring singe or multiply NVIDIA GPUs and provi
 * Power Default Limit, Draw, Max Limit
 
 LLD using for GPUs discovery and items creation.
+
+This template was tested on:
+* Windows 10
+* Single and multiply NVIDIA GPUs
 
 ## Setup
 Install Zabbix agent on Windows OS according to Zabbix documentation.
@@ -36,7 +40,9 @@ There are no template links in this template.
 
 ## Discovery rules
 
-nvidia.gpu.discovery
+|Name|Description|Type|Key and additional info|
+|----|-----------|----|----|
+|NVIDIA GPUs discovery |<p>Parse nvidia-smi output fro UUID and GPUs names.</p> |ZABBIX_PASSIVE |nvidia.gpu.discovery<p>**Preprocessing**:</p>- JAVASCRIPT |
 
 ## Items collected
 
