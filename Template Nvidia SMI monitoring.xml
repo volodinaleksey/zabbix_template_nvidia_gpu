@@ -380,17 +380,30 @@
                     <preprocessing>
                         <step>
                             <type>JAVASCRIPT</type>
-                            <params>var lld = [];
-var lines = value.split(/, |\r\n/);
-var lines_num = lines.length;
-for (i = 0; i &lt; lines_num -1; i+=2)
-{
-  var row = {};
-  row[&quot;{#GPU.UUID}&quot;] = lines[i];
-  row[&quot;{#GPU.NAME}&quot;] = lines[i+1];
-  lld.push(row);
-}
-return JSON.stringify(lld); </params>
+                            <params>    // Split the input data into lines
+    var lines = value.split('\n').filter(function(line) {
+        return line.trim() !== "";
+    });
+
+    var result = [];
+
+    lines.forEach(function(line) {
+        // Split each line into UUID and name
+        var parts = line.split(',');
+        var uuid = parts[0].trim();
+        var name = parts[1] ? parts[1].trim() : '';
+
+        // Create an object and add it to the array
+        if (uuid && name) {
+            result.push({
+                "{#GPU.UUID}": uuid,
+                "{#GPU.NAME}": name
+            });
+        }
+    });
+
+    // Return the result in JSON format
+    return JSON.stringify(result, null, 2); </params>
                         </step>
                     </preprocessing>
                 </discovery_rule>
