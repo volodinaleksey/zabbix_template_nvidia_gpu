@@ -24,7 +24,9 @@ Copy `nvidia_gpu_template.conf` into the folder with Zabbix agent configuration 
 
 For RHEK based distro you may see this error
 
+```text
 Failed to initialize NVML: Insufficient Permissions
+```
 
 To fix this run following command
 
