@@ -22,6 +22,18 @@ Install Zabbix agent on Windows OS according to Zabbix documentation.
 
 Copy `nvidia_gpu_template.conf` into the folder with Zabbix agent configuration (`C:\Program Files\Zabbix Agent\zabbix_agentd.d` by default). Don't forget to restart Zabbix agent.
 
+For RHEK based distro you may see this error
+
+Failed to initialize NVML: Insufficient Permissions
+
+To fix this run following command
+
+usermod -a -G vglusers zabbix
+
+And restart Zabbix Agent in order to apply changes
+
+systemctl restart zabbix-agent2.service
+
 ## Author
 
 Aleksey Volodin
