@@ -28,12 +28,15 @@ Failed to initialize NVML: Insufficient Permissions
 
 To fix this run following command
 
+```bash
 usermod -a -G vglusers zabbix
+```
 
 And restart Zabbix Agent in order to apply changes
 
+```bash
 systemctl restart zabbix-agent2.service
-
+```
 ## Author
 
 Aleksey Volodin
