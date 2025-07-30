@@ -83,4 +83,4 @@ There are no template links in this template.
 
 ## Triggers
 
-There are no triggers in this template.
+Warning and critical triggers for GPU temperature based on GPU Max Operating Temp and GPU Target Temperature.
