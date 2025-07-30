@@ -14,7 +14,7 @@ The template is developed for monitoring singe or multiply NVIDIA GPUs and provi
 LLD using for GPUs discovery and items creation.
 
 This template was tested on:
-* Windows 10
+* Windows 10, Ubuntu 24.04
 * Single and multiply NVIDIA GPUs
 
 ## Setup
