@@ -1,0 +1,360 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 1edc8f6bcd4e411eb84daad3bf240738
+      name: Templates/Hardware/GPU
+  templates:
+    - uuid: efe61bdf77ea4affbfc45b5d35db87b3
+      template: 'Template Nvidia GPU'
+      name: 'Template Nvidia GPU'
+      description: 'The NVIDIA System Management Interface (nvidia-smi) utility used.'
+      groups:
+        - name: Templates/Hardware/GPU
+      discovery_rules:
+        - uuid: 8428cefb9962442a8fc879aaf8c3a3fb
+          name: 'NVIDIA GPUs discovery'
+          key: nvidia.gpu.discovery
+          delay: 1h
+          lifetime: 30d
+          enabled_lifetime_type: DISABLE_NEVER
+          item_prototypes:
+            - uuid: 7a07df6296f542cbb987b6175b6f6987
+              name: 'Clocks Graphics'
+              type: DEPENDENT
+              key: 'clocks.graphics[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MHz'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Graphics\s+: (\w+) MHz'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 0bb337b8cfa24ddba17a6375c9fa34d6
+              name: 'Clocks Memory'
+              type: DEPENDENT
+              key: 'clocks.memory[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MHz'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Memory\s+: (\w+) MHz'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 271bf67bac594b9c977e1c28f533cfcc
+              name: 'Clocks SM'
+              type: DEPENDENT
+              key: 'clocks.sm[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MHz'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'SM\s+: (\w+) MHz'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 76c7952f70834f55bb8af1eaeb81ce20
+              name: 'Clocks Video'
+              type: DEPENDENT
+              key: 'clocks.video[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MHz'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Video\s+: (\w+) MHz'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 31132449a45c42aca7d16c437741e222
+              name: 'Fan Sped in %'
+              type: DEPENDENT
+              key: 'fan.speed[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!%'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Fan Speed\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 9bfa2b2c73d34ca4a86263f5858ae6a1
+              name: 'GPU Current Temp'
+              type: DEPENDENT
+              key: 'gpu.current.temp[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!°C'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'GPU Current Temp\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: fd17fe826fa843cfa274efdb5a9c57ed
+              name: 'GPU Max Operating Temp'
+              type: DEPENDENT
+              key: 'gpu.max.operation.temp[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!°C'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'GPU Max Operating Temp\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 79e2d34ebf524b408c8c0b904315f672
+              name: 'GPU Slowdown Temp'
+              type: DEPENDENT
+              key: 'gpu.slowdown.temp[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!°C'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'GPU Slowdown Temp\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 80d234f92ce54ab78e975eed1bd2bc12
+              name: 'GPU Target Temperature'
+              type: DEPENDENT
+              key: 'gpu.target.temp[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!°C'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'GPU Target Temperature\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 55f8380df6af439f9c5fcb66fa624b1c
+              name: 'GPU utilization in %'
+              type: DEPENDENT
+              key: 'gpu.utilization[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!%'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'GPU\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 378a68ec55d54b7890e827ffdd16d468
+              name: 'Memory free'
+              type: DEPENDENT
+              key: 'memory.free[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MiB'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Free\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 3d9de258313b48cea24bf1518154b936
+              name: 'Memory total'
+              type: DEPENDENT
+              key: 'memory.total[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MiB'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Total\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: ea33d84120d94105850c19de0b3f5d99
+              name: 'Memory used'
+              type: DEPENDENT
+              key: 'memory.used[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!MiB'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Used\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: b7a69708902c4424a5dfca54aeeb7941
+              name: 'GPU memory utilization in %'
+              type: DEPENDENT
+              key: 'memory.utilization[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              units: '!%'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Memory\s+: (\w+)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 6a6b9d0c66504f488932b42eb5f7222c
+              name: '{#GPU.NAME} raw data'
+              key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              history: '0'
+              value_type: TEXT
+              trends: '0'
+              tags:
+                - tag: Application
+                  value: 'Zabbix raw items'
+            - uuid: e6175fdf4dbe4843b891f499d3eab928
+              name: 'Power Default Limit'
+              type: DEPENDENT
+              key: 'power.dpl[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              value_type: FLOAT
+              units: '!W'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Default Power Limit\s+: (\w+...)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 07077ec243894aa68f104e6fdbc7316d
+              name: 'Power Max Limit'
+              type: DEPENDENT
+              key: 'power.mpl[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              value_type: FLOAT
+              units: '!W'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Max Power Limit\s+: (\w+...)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+            - uuid: 74f334bf9cfe4753bbc12fa316f3ddc1
+              name: 'Power Draw'
+              type: DEPENDENT
+              key: 'power.pd[{#GPU.UUID}]'
+              delay: '0'
+              history: 90d
+              value_type: FLOAT
+              units: '!W'
+              preprocessing:
+                - type: REGEX
+                  parameters:
+                    - 'Power Draw\s+: (\w+...)'
+                    - \1
+              master_item:
+                key: 'nvidia.gpu.getalldata[{#GPU.UUID}]'
+              tags:
+                - tag: Application
+                  value: 'NVIDIA GPU'
+          trigger_prototypes:
+            - uuid: bdf16e03d3464e8b94ea2ed18607cea6
+              expression: 'last(/Template Nvidia GPU/gpu.current.temp[{#GPU.UUID}],#5) > last(/Template Nvidia GPU/gpu.max.operation.temp[{#GPU.UUID}])'
+              name: 'Temperature critical'
+              opdata: 'Current temperature: {ITEM.LASTVALUE1}'
+              priority: DISASTER
+            - uuid: 19b41e85f1e742bbbaa5e6eced9e5a9a
+              expression: 'last(/Template Nvidia GPU/gpu.current.temp[{#GPU.UUID}],#5) > last(/Template Nvidia GPU/gpu.target.temp[{#GPU.UUID}])'
+              name: 'Temperature warning'
+              opdata: 'Current temperature: {ITEM.LASTVALUE1}'
+              priority: HIGH
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |2
+                      // Split the input data into lines
+                      var lines = value.split('\n').filter(function(line) {
+                          return line.trim() !== "";
+                      });
+                  
+                      var result = [];
+                  
+                      lines.forEach(function(line) {
+                          // Split each line into UUID and name
+                          var parts = line.split(',');
+                          var uuid = parts[0].trim();
+                          var name = parts[1] ? parts[1].trim() : '';
+                  
+                          // Create an object and add it to the array
+                          if (uuid && name) {
+                              result.push({
+                                  "{#GPU.UUID}": uuid,
+                                  "{#GPU.NAME}": name
+                              });
+                          }
+                      });
+                  
+                      // Return the result in JSON format
+                      return JSON.stringify(result, null, 2);
